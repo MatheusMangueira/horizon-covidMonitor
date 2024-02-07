@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">horizonCovidMonitor</string>
+
+    <!-- page register -->
+    <string name="register_form">Cadastre seu Paciente</string>
+    <string name="register_name">Nome</string>
+    <string name="register_age">Idade</string>
+    <string name="register_temperature">Temperatura Corportal</string>
+    <string name="register_noOryesCoughing">Está ou esteve tossindo?</string>
+    <string name="register_noOryesCoughing_day">Período (em dias) com tosse</string>
+    <string name="register_noOryesHeadache">Está ou esteve com dor de cabeça?</string>
+    <string name="register_headache">Período (em dias) com dor de cabeça</string>
+    <string name="register_visitedCountry">Paises visitados</string>
+    <string name="register_italy">Itália</string>
+    <string name="register_chine">China</string>
+    <string name="register_indonesia">Indonésia</string>
+    <string name="register_portugal">Portugal</string>
+    <string name="register_eua">EUA</string>
+    <string name="register_null">Nenhuma Opção</string>
+    <string name="register_week">Á quantas semanas visitou o País?</string>
+    <string name="register_button">Cadastrar paciente</string>
+</resources>
