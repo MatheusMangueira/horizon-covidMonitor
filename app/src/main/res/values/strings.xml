@@ -19,4 +19,11 @@
     <string name="register_null">Nenhuma Opção</string>
     <string name="register_week">Á quantas semanas visitou o País?</string>
     <string name="register_button">Cadastrar paciente</string>
+
+    <!-- page notification -->
+    <string name="notification_success">Cadastrado com sucesso!</string>
+    <string name="notification_result">Seu resultdo:</string>
+    <string name="notification_buttonGoBack">Cadastrar outro</string>
+    <string name="notification_ButtonInitial">Voltar ao inicio</string>
+
 </resources>

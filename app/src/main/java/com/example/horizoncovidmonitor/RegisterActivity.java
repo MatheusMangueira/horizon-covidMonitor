@@ -11,133 +11,124 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import com.example.horizoncovidmonitor.service.RegisterService;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText registerName, age, registerTemperature, registerDay, registerHeadache, registerWeek;
     private RadioGroup registerRadioCoughing, registerRadioHeadache, registerRadioCountry;
     private RadioButton yesCoughing, noCoughing, yesHeadache, noHeadache, italiaRadio, indonesiaRadio, portugalRadio, euaRadio, noVisited;
-    private TextView testando;
     private boolean validateData;
     private Button registerButton;
     private LinearLayout componentCoughing, componentHeadache, componentWeek;
 
+    private RegisterService registerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register);
-
-        //EditText
+        setContentView(R.layout.activity_register);
+        // Find views
         registerName = findViewById(R.id.registerName);
         age = findViewById(R.id.age);
         registerTemperature = findViewById(R.id.registerTemperature);
         registerDay = findViewById(R.id.registerDay);
         registerHeadache = findViewById(R.id.registerHeadache);
         registerWeek = findViewById(R.id.registerWeek);
-
-        //button
         registerButton = findViewById(R.id.registerButton);
-
-        //radio button
         yesCoughing = findViewById(R.id.yesCoughing);
         yesHeadache = findViewById(R.id.yesHeadache);
         noVisited = findViewById(R.id.noVisited);
-
-        //Layout
-        LinearLayout componentCoughing = findViewById(R.id.componentCoughing);
-        LinearLayout componentHeadache = findViewById(R.id.componentHeadache);
-        LinearLayout componentWeek = findViewById(R.id.componentWeek);
-
-        // RadioGroup
+        componentCoughing = findViewById(R.id.componentCoughing);
+        componentHeadache = findViewById(R.id.componentHeadache);
+        componentWeek = findViewById(R.id.componentWeek);
         registerRadioCoughing = findViewById(R.id.registerRadioCoughing);
         registerRadioHeadache = findViewById(R.id.registerRadioHeadache);
         registerRadioCountry = findViewById(R.id.registerRadioCountry);
 
-        registerRadioHeadache.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.yesHeadache) {
-                    componentHeadache.setVisibility(View.VISIBLE);
-                } else {
-                    componentHeadache.setVisibility(View.GONE);
-                    registerHeadache.setText("");
-                }
-            }
-        });
-
-        registerRadioCoughing.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.yesCoughing) {
-                    componentCoughing.setVisibility(View.VISIBLE);
-                } else {
-                    componentCoughing.setVisibility(View.GONE);
-                    registerDay.setText("");
-                }
-            }
-        });
-
-
-        registerRadioCountry.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                if (checkedId == R.id.noVisited) {
-                    componentWeek.setVisibility(View.GONE);
-                    registerWeek.setText("");
-                } else {
-                    componentWeek.setVisibility(View.VISIBLE);
-
-                }
-            }
-        });
-
+        // Set listeners
+        setRadioListeners();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 validateData = formValidate();
-                String teste = "Seu resultado: COVID";
-
-                Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
-                intent.putExtra("result", teste);
-                startActivity(intent);
 
                 if (validateData) {
-                   //codigo aqui
+                    int newAge = parseEditTextToInt(age);
+                    int newTemperature = parseEditTextToInt(registerTemperature);
+                    int newRegisterHeadache = parseEditTextToInt(registerHeadache);
+                    int newRegisterDay = parseEditTextToInt(registerDay);
+                    int newPaisVisitado = parseEditTextToInt(registerWeek);
 
+                    registerService = new RegisterService(newRegisterDay, newPaisVisitado, newRegisterHeadache, newTemperature, newAge);
+
+                    String hospitalized = registerService.inpatient();
+
+                    Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
+                    intent.putExtra("result", hospitalized);
+                    startActivity(intent);
                 }
             }
         });
     }
 
-    public boolean formValidate() {
-        boolean isNull = false;
+    private void setRadioListeners() {
+        registerRadioHeadache.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.yesHeadache) {
+                componentHeadache.setVisibility(View.VISIBLE);
+            } else {
+                componentHeadache.setVisibility(View.GONE);
+                registerHeadache.setText("");
+            }
+        });
 
-        if (!TextUtils.isEmpty(registerName.getText().toString())) {
-            isNull = true;
-        } else {
+        registerRadioCoughing.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.yesCoughing) {
+                componentCoughing.setVisibility(View.VISIBLE);
+            } else {
+                componentCoughing.setVisibility(View.GONE);
+                registerDay.setText("");
+            }
+        });
+
+        registerRadioCountry.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.noVisited) {
+                componentWeek.setVisibility(View.GONE);
+                registerWeek.setText("");
+            } else {
+                componentWeek.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+    private int parseEditTextToInt(EditText editText) {
+        return TextUtils.isEmpty(editText.getText().toString()) ? 0 : Integer.parseInt(editText.getText().toString());
+    }
+
+    private boolean formValidate() {
+        boolean isValid = true;
+
+        if (TextUtils.isEmpty(registerName.getText().toString())) {
             registerName.setError("Campo Obrigatorio!");
             registerName.requestFocus();
+            isValid = false;
         }
 
-        if (!TextUtils.isEmpty(age.getText().toString())) {
-            isNull = true;
-        } else {
+        if (TextUtils.isEmpty(age.getText().toString())) {
             age.setError("Campo Obrigatorio!");
             age.requestFocus();
+            isValid = false;
         }
 
-        if (!TextUtils.isEmpty(registerTemperature.getText().toString())) {
-            isNull = true;
-        } else {
+        if (TextUtils.isEmpty(registerTemperature.getText().toString())) {
             registerTemperature.setError("Campo Obrigatorio!");
             registerTemperature.requestFocus();
+            isValid = false;
         }
 
-        return isNull;
+        return isValid;
     }
 
 }
