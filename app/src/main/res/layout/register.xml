@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -52,6 +52,7 @@
                 android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/registerName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -71,6 +72,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/age"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
@@ -89,6 +91,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/registerTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
@@ -114,6 +117,7 @@
                 android:orientation="vertical"
                 >
                 <RadioGroup
+                    android:id="@+id/registerRadioCoughing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -129,6 +133,7 @@
                         android:layout_marginRight="12dp"
                         />
                     <RadioButton
+                        android:checked="true"
                         android:id="@+id/noCoughing"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -140,10 +145,11 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/componentCoughing"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible"
+                android:visibility="gone"
                 >
                 <TextView
                     android:layout_width="match_parent"
@@ -155,6 +161,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/registerDay"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="16dp"
@@ -180,6 +187,7 @@
                 android:layout_height="wrap_content"
                 >
                 <RadioGroup
+                    android:id="@+id/registerRadioHeadache"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -194,6 +202,7 @@
                         android:layout_marginRight="12dp"
                         />
                     <RadioButton
+                        android:checked="true"
                         android:id="@+id/noHeadache"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -206,10 +215,11 @@
 
 
         <LinearLayout
+            android:id="@+id/componentHeadache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <TextView
                 android:layout_width="match_parent"
@@ -221,6 +231,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/registerHeadache"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
@@ -228,7 +239,6 @@
                 android:paddingHorizontal="8dp"
                 android:inputType="number"
                 android:textSize="16sp" />
-
         </LinearLayout>
 
 
@@ -242,6 +252,7 @@
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:id="@+id/registerRadioCountry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
@@ -275,7 +286,7 @@
                     />
 
                 <RadioButton
-                    android:id="@+id/portualRadio"
+                    android:id="@+id/portugalRadio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/register_portugal"
@@ -292,6 +303,7 @@
                     android:textSize="16sp"
                     />
                 <RadioButton
+                    android:checked="true"
                     android:id="@+id/noVisited"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -303,10 +315,11 @@
             </RadioGroup>
 
         <LinearLayout
+            android:id="@+id/componentWeek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="visible"
+            android:visibility="gone"
             >
             <TextView
                 android:layout_width="match_parent"
@@ -318,6 +331,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/registerWeek"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
@@ -326,11 +340,11 @@
                 android:inputType="number"
                 android:textSize="16sp"
                 />
-
         </LinearLayout>
 
 
             <Button
+                android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/register_button"
@@ -339,6 +353,9 @@
                 android:backgroundTint="@color/yellow"
                 android:textColor="@color/grey"/>
         </LinearLayout>
+
+
+
     </ScrollView>
 
 
