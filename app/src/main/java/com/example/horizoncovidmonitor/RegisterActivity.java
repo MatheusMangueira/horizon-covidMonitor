@@ -2,6 +2,7 @@ package com.example.horizoncovidmonitor;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -98,9 +99,11 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validateData = formValidate();
-
+                Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
+                startActivity(intent);
                 if (validateData) {
-                   //codigo aqui.
+                   //codigo aqui
+
                 }
             }
         });
