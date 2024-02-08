@@ -99,8 +99,12 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 validateData = formValidate();
+                String teste = "Seu resultado: COVID";
+
                 Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
+                intent.putExtra("result", teste);
                 startActivity(intent);
+
                 if (validateData) {
                    //codigo aqui
 

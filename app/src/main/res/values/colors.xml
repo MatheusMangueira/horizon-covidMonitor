@@ -4,4 +4,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#3f3f3f</color>
     <color name="yellow">#F1D10A</color>
+    <color name="greenCheck">#B2308024</color>
 </resources>
