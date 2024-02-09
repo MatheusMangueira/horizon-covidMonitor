@@ -65,7 +65,6 @@ public class RegisterDAO implements IRegisterDAO {
         String sql = "SELECT * FROM " + Database.TABLE_NAME + " ;";
         Cursor c = getData.rawQuery(sql, null);
 
-
         while (c.moveToNext()) {
             Patient patient = new Patient();
 
@@ -78,9 +77,6 @@ public class RegisterDAO implements IRegisterDAO {
             String status = c.getString(c.getColumnIndexOrThrow(Database.STATUS));
             String visitedCountry = c.getString(c.getColumnIndexOrThrow(Database.VISITEDCOUNTRY));
             int weekCountry = c.getInt(c.getColumnIndexOrThrow(Database.WEEKSCOUNTRY));
-
-
-
 
             patient.setId(id);
             patient.setName(name);
@@ -115,5 +111,44 @@ public class RegisterDAO implements IRegisterDAO {
         boolean exist = cursor.getCount() > 0;
         cursor.close();
         return exist;
+    }
+
+    // Método para listar pacientes com base no status
+    public List<Patient> listByStatus(String status) {
+
+        List<Patient> filteredPatients = new ArrayList<>();
+
+        String sql = "SELECT * FROM " + Database.TABLE_NAME + " WHERE " + Database.STATUS + " = ?";
+
+        Cursor cursor = getData.rawQuery(sql, new String[]{status});
+
+        while (cursor.moveToNext()) {
+            Patient patient = new Patient();
+
+            Long id = cursor.getLong(cursor.getColumnIndexOrThrow(Database.ID));
+            String name = cursor.getString(cursor.getColumnIndexOrThrow(Database.NAME));
+            int age = cursor.getInt(cursor.getColumnIndexOrThrow(Database.AGE));
+            int temperature = cursor.getInt(cursor.getColumnIndexOrThrow(Database.TEMPERATURE));
+            int cough = cursor.getInt(cursor.getColumnIndexOrThrow(Database.COUGH));
+            int headache = cursor.getInt(cursor.getColumnIndexOrThrow(Database.HEADACHE));
+            String statusName = cursor.getString(cursor.getColumnIndexOrThrow(Database.STATUS));
+            String visitedCountry = cursor.getString(cursor.getColumnIndexOrThrow(Database.VISITEDCOUNTRY));
+            int weekCountry = cursor.getInt(cursor.getColumnIndexOrThrow(Database.WEEKSCOUNTRY));
+
+            patient.setId(id);
+            patient.setName(name);
+            patient.setAge(age);
+            patient.setTemperature(temperature);
+            patient.setCoughingDays(cough);
+            patient.setHeadacheDays(headache);
+            patient.setStatus(statusName);
+            patient.setVisitedCountry(visitedCountry);
+            patient.setWeeksCountry(weekCountry);
+
+            filteredPatients.add(patient);
+        }
+
+        cursor.close();
+        return filteredPatients;
     }
 }
