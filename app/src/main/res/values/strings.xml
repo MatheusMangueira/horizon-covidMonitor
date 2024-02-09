@@ -8,7 +8,7 @@
     <string name="main_title">Lista de ações:</string>
 
     <!-- page register -->
-    <string name="register_form">Cadastre seu Paciente</string>
+    <string name="register_form">Cadastrar Paciente</string>
     <string name="register_name">Nome</string>
     <string name="register_age">Idade</string>
     <string name="register_temperature">Temperatura Corportal</string>
