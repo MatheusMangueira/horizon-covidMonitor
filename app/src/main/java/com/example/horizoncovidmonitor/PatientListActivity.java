@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class PatientListActivity extends AppCompatActivity {
     private ListView listView;
     private Button backButton;
+    private TextView titleStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +26,25 @@ public class PatientListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_list);
 
         listView = findViewById(R.id.listView);
+        backButton = findViewById(R.id.backButton);
+        titleStatus = findViewById(R.id.titleStatus);
+
+        String status = getIntent().getStringExtra("status");
+
+        titleStatus.setText("Lista de: " + status);
 
         RegisterDAO registerDAO = new RegisterDAO(this);
 
-        List<Patient> patients = registerDAO.list();
+        List<Patient> patients = registerDAO.listByStatus(status);
 
         PatientListAdapter adapter = new PatientListAdapter(this, patients);
 
         listView.setAdapter(adapter);
 
-        backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PatientListActivity.this, MainActivity.class);
+                Intent intent = new Intent(PatientListActivity.this, PatientListByStatusActivity.class);
                 startActivity(intent);
             }
         });
