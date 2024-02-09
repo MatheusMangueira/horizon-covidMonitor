@@ -71,15 +71,15 @@ public class RegisterService {
         String admit;
 
         if (week > 0 && week <= 6 && coughing > 5 && headache > 5 && temperature > 37) {
-            admit = "Internação para tratamento";
+            admit = "Covid";
         } else if (week <= 6 && week > 0) {
-            admit = "Paciente enviado à quarentena";
+            admit = "Quarentena";
         } else if ((age > 60 || age < 10) && (temperature > 37 || headache > 3 || coughing > 5)) {
-            admit = "Paciente enviado à quarentena";
+            admit = "Quarentena";
         } else if (age >= 10 && age <= 60 && temperature > 37 && headache > 5 && coughing > 5 && week == 0) {
-            admit = "Paciente enviado à quarentena";
+            admit = "Quarentena";
         } else {
-            admit = "Paciente liberado";
+            admit = "Liberado";
         }
 
         return admit;

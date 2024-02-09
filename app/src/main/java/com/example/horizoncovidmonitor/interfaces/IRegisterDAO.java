@@ -10,4 +10,6 @@ public interface IRegisterDAO {
     public boolean delete (Patient patient);
     public List<Patient> list();
     public boolean clearData();
+    public  boolean isPatientExist(String name);
+    public List<Patient> listByStatus(String status);
 }

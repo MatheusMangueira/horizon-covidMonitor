@@ -30,6 +30,7 @@
                 android:drawableEnd="@drawable/baseline_arrow_back_24" />
 
             <TextView
+                android:id="@+id/titleStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Lista de: Quarentena"
