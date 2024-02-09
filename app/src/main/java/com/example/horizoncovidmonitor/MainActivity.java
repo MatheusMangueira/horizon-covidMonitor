@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         buttonList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
+                Intent intent = new Intent(MainActivity.this, PatientListByStatusActivity.class);
                 startActivity(intent);
             }
         });

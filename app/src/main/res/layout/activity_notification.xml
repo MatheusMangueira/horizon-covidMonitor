@@ -45,24 +45,24 @@
         android:gravity="center"
         android:layout_marginTop="32dp">
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonNewRegister"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:text="@string/notification_buttonGoBack"
-            android:backgroundTint="@color/yellow"
+            android:background="@drawable/backgound_button"
             android:textColor="@color/grey"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:layout_marginRight="16dp"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonInitialView"
             android:layout_width="170dp"
             android:layout_height="wrap_content"
             android:text="@string/notification_ButtonInitial"
-            android:backgroundTint="@color/yellow"
+            android:background="@drawable/backgound_button"
             android:textColor="@color/grey"
-            android:textSize="16sp"/>
+            android:textSize="14sp"/>
     </LinearLayout>
 
 
