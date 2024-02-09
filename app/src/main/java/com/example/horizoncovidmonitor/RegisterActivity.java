@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioGroup registerRadioCoughing, registerRadioHeadache, registerRadioCountry;
     private RadioButton yesCoughing, noCoughing, yesHeadache, noHeadache, italiaRadio, indonesiaRadio, portugalRadio, euaRadio, noVisited;
     private boolean validateData;
-    private Button registerButton;
+    private Button registerButton, goBackInitial;
     private LinearLayout componentCoughing, componentHeadache, componentWeek;
 
     private RegisterService registerService;
@@ -46,6 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerRadioCoughing = findViewById(R.id.registerRadioCoughing);
         registerRadioHeadache = findViewById(R.id.registerRadioHeadache);
         registerRadioCountry = findViewById(R.id.registerRadioCountry);
+        goBackInitial = findViewById(R.id.goBackInitial);
 
         // Set listeners
         setRadioListeners();
@@ -70,6 +71,14 @@ public class RegisterActivity extends AppCompatActivity {
                     intent.putExtra("result", hospitalized);
                     startActivity(intent);
                 }
+            }
+        });
+
+        goBackInitial.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

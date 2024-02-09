@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 public class NotificationActivity extends AppCompatActivity {
 
-    private Button buttonNewRegister;
+    private Button buttonNewRegister, buttonInitialView;
     private TextView diagnosis;
 
     @Override
@@ -22,6 +22,7 @@ public class NotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_notification);
 
         buttonNewRegister = findViewById(R.id.buttonNewRegister);
+        buttonInitialView = findViewById(R.id.buttonInitialView);
 
         diagnosis = findViewById(R.id.diagnosis);
 
@@ -35,6 +36,14 @@ public class NotificationActivity extends AppCompatActivity {
                 Intent intent = new Intent(NotificationActivity.this, RegisterActivity.class);
                 startActivity(intent);
 
+            }
+        });
+
+        buttonInitialView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(NotificationActivity.this, MainActivity.class);
+                startActivity(intent);
             }
         });
     }

@@ -1,6 +1,12 @@
 <resources>
     <string name="app_name">horizonCovidMonitor</string>
 
+    <!-- page main -->
+    <string name="main_hello">Olá, seja bem vindo!</string>
+    <string name="main_buttonRegister">Cadastrar paciente</string>
+    <string name="main_ButtonList">Lista de pacientes</string>>
+    <string name="main_title">Lista de ações:</string>
+
     <!-- page register -->
     <string name="register_form">Cadastre seu Paciente</string>
     <string name="register_name">Nome</string>
@@ -19,6 +25,7 @@
     <string name="register_null">Nenhuma Opção</string>
     <string name="register_week">Á quantas semanas visitou o País?</string>
     <string name="register_button">Cadastrar paciente</string>
+    <string name="register_buttonGoBack">Voltar</string>
 
     <!-- page notification -->
     <string name="notification_success">Cadastrado com sucesso!</string>
