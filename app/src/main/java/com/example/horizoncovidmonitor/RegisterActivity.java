@@ -1,7 +1,5 @@
 package com.example.horizoncovidmonitor;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +9,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.horizoncovidmonitor.DAO.RegisterDAO;
 import com.example.horizoncovidmonitor.model.Patient;
@@ -50,6 +51,9 @@ public class RegisterActivity extends AppCompatActivity {
         registerRadioCountry = findViewById(R.id.registerRadioCountry);
         goBackInitial = findViewById(R.id.goBackInitial);
 
+        // pais
+        italiaRadio = findViewById(R.id.italiaRadio);
+
         // Set listeners
         setRadioListeners();
 
@@ -58,7 +62,6 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 validateData = formValidate();
 
-
                 if (validateData) {
                     RegisterDAO registerDAO = new RegisterDAO(getApplicationContext());
 
@@ -66,7 +69,23 @@ public class RegisterActivity extends AppCompatActivity {
                     int newTemperature = parseEditTextToInt(registerTemperature);
                     int newRegisterHeadache = parseEditTextToInt(registerHeadache);
                     int newRegisterDay = parseEditTextToInt(registerDay);
-                    int newPaisVisitado = parseEditTextToInt(registerWeek);
+                    int newWeeksCountry = parseEditTextToInt(registerWeek);
+
+                    int selectedCountryId = registerRadioCountry.getCheckedRadioButtonId();
+                    RadioButton selectedRadioButton = findViewById(selectedCountryId);
+                    String visitedCountry = "";
+                    if (selectedRadioButton != null) {
+                        visitedCountry = selectedRadioButton.getText().toString();
+                    }
+
+                    if (registerDAO.isPatientExist(registerName.getText().toString())) {
+                        Toast.makeText(RegisterActivity.this, "Já existe um paciente com o mesmo nome", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    registerService = new RegisterService(newRegisterDay, newWeeksCountry, newRegisterHeadache, newTemperature, newAge);
+
+                    String hospitalized = registerService.inpatient();
 
                     Patient patient = new Patient();
                     patient.setName(registerName.getText().toString());
@@ -74,16 +93,12 @@ public class RegisterActivity extends AppCompatActivity {
                     patient.setTemperature(newTemperature);
                     patient.setCoughingDays(newRegisterDay);
                     patient.setHeadacheDays(newRegisterHeadache);
-                    patient.setVisitedCountry("italia");
-                    patient.setWeeksCountry(newPaisVisitado);
-                    patient.setStatus("QUARENTENA");
+                    patient.setVisitedCountry(visitedCountry);
+                    patient.setWeeksCountry(newWeeksCountry);
+                    patient.setStatus(hospitalized);
 
                     registerDAO.save(patient);
                     finish();
-
-                    registerService = new RegisterService(newRegisterDay, newPaisVisitado, newRegisterHeadache, newTemperature, newAge);
-
-                    String hospitalized = registerService.inpatient();
 
                     Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
                     intent.putExtra("result", hospitalized);

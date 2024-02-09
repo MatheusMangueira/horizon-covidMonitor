@@ -9,4 +9,5 @@ public interface IRegisterDAO {
     public boolean update(Patient patient);
     public boolean delete (Patient patient);
     public List<Patient> list();
+    public boolean clearData();
 }

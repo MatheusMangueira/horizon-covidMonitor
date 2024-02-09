@@ -10,6 +10,7 @@ import android.widget.Button;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
+import com.example.horizoncovidmonitor.DAO.RegisterDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,5 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //RegisterDAO registerDAO = new RegisterDAO(getApplicationContext());
+        //registerDAO.clearData();
+
     }
 }

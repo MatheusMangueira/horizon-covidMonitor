@@ -36,13 +36,18 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
             ((TextView) convertView.findViewById(R.id.nameTextView)).setText("Nome: " + patient.getName());
             ((TextView) convertView.findViewById(R.id.ageTextView)).setText("Idade: " + patient.getAge());
             ((TextView) convertView.findViewById(R.id.temperatureTextView)).setText("temperatura corporal: " + patient.getTemperature());
-            ((TextView) convertView.findViewById(R.id.coughTextView)).setText("período (em dias) com tosse: " + patient.getCoughingDays());
-            ((TextView) convertView.findViewById(R.id.headacheTextView)).setText("período (em dias) com dor de cabeça: " + patient.getHeadacheDays());
+            ((TextView) convertView.findViewById(R.id.coughTextView)).setText("Período (em dias) com tosse: " + formatValue(patient.getCoughingDays()));
+            ((TextView) convertView.findViewById(R.id.headacheTextView)).setText("Período (em dias) com dor de cabeça: " + formatValue(patient.getHeadacheDays()));
             ((TextView) convertView.findViewById(R.id.countryTextView)).setText("Pais visitado: " + patient.getVisitedCountry());
-            ((TextView) convertView.findViewById(R.id.countryWeekTextView)).setText("quantas semanas visitou o Pais: " + patient.getWeeksCountry());
+            ((TextView) convertView.findViewById(R.id.countryWeekTextView)).setText("Quantas semanas visitou o país: " + formatValue(patient.getWeeksCountry()));
+            ((TextView) convertView.findViewById(R.id.status)).setText("Status: " + patient.getStatus());
         }
 
         return convertView;
+    }
+
+    private String formatValue(int value) {
+        return value == 0 ? "ITEM NÃO INFORMADO" : String.valueOf(value);
     }
 
     private static class ViewHolder {
