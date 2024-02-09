@@ -10,51 +10,98 @@
     >
 
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Nome:" />
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/rounded_background"
+        android:backgroundTint="@color/whiteTwo"
+        >
 
-    <TextView
-        android:id="@+id/ageTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Idade:" />
 
-    <TextView
-        android:id="@+id/temperatureTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="temperatura corporal:" />
+    >
+        <TextView
+            android:id="@+id/nameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nome:"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
 
-    <TextView
-    android:id="@+id/coughTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="período (em dias) com tosse"
-        />
+        <TextView
+            android:id="@+id/ageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Idade:"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
 
-    <TextView
-        android:id="@+id/headacheTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="período (em dias) com dor de cabeça:"
-        />
+        <TextView
+            android:id="@+id/temperatureTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="temperatura corporal:"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
 
-    <TextView
-        android:id="@+id/countryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pais visitado:"
-        />
+        <TextView
+            android:id="@+id/coughTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="período (em dias) com tosse"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
 
-    <TextView
-        android:id="@+id/countryWeekTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="quantas semanas visitou o Pais:"
-        />
+        <TextView
+            android:id="@+id/headacheTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="período (em dias) com dor de cabeça:"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/countryTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pais visitado:"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
+
+        <TextView
+            android:id="@+id/countryWeekTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="quantas semanas visitou o Pais:"
+            android:textSize="16dp"
+            android:textColor="@color/grey"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp"
+            />
+
+    </LinearLayout>
+
+
 
 
 </LinearLayout>
