@@ -42,6 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        buttonList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PatientListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

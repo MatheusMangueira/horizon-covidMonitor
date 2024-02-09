@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.horizoncovidmonitor.DAO.RegisterDAO;
+import com.example.horizoncovidmonitor.model.Patient;
 import com.example.horizoncovidmonitor.service.RegisterService;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -56,12 +58,28 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 validateData = formValidate();
 
+
                 if (validateData) {
+                    RegisterDAO registerDAO = new RegisterDAO(getApplicationContext());
+
                     int newAge = parseEditTextToInt(age);
                     int newTemperature = parseEditTextToInt(registerTemperature);
                     int newRegisterHeadache = parseEditTextToInt(registerHeadache);
                     int newRegisterDay = parseEditTextToInt(registerDay);
                     int newPaisVisitado = parseEditTextToInt(registerWeek);
+
+                    Patient patient = new Patient();
+                    patient.setName(registerName.getText().toString());
+                    patient.setAge(newAge);
+                    patient.setTemperature(newTemperature);
+                    patient.setCoughingDays(newRegisterDay);
+                    patient.setHeadacheDays(newRegisterHeadache);
+                    patient.setVisitedCountry("italia");
+                    patient.setWeeksCountry(newPaisVisitado);
+                    patient.setStatus("QUARENTENA");
+
+                    registerDAO.save(patient);
+                    finish();
 
                     registerService = new RegisterService(newRegisterDay, newPaisVisitado, newRegisterHeadache, newTemperature, newAge);
 
