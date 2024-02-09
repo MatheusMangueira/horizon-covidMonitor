@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 
 import com.example.horizoncovidmonitor.interfaces.IRegisterDAO;
 import com.example.horizoncovidmonitor.model.Patient;
@@ -67,7 +66,7 @@ public class RegisterDAO implements IRegisterDAO {
         Cursor c = getData.rawQuery(sql, null);
 
 
-        while (c.moveToNext()){
+        while (c.moveToNext()) {
             Patient patient = new Patient();
 
             Long id = c.getLong(c.getColumnIndexOrThrow(Database.ID));
@@ -77,8 +76,11 @@ public class RegisterDAO implements IRegisterDAO {
             int cough = c.getInt(c.getColumnIndexOrThrow(Database.COUGH));
             int headache = c.getInt(c.getColumnIndexOrThrow(Database.HEADACHE));
             String status = c.getString(c.getColumnIndexOrThrow(Database.STATUS));
-            String visitedCountry =  c.getString(c.getColumnIndexOrThrow(Database.VISITEDCOUNTRY));
+            String visitedCountry = c.getString(c.getColumnIndexOrThrow(Database.VISITEDCOUNTRY));
             int weekCountry = c.getInt(c.getColumnIndexOrThrow(Database.WEEKSCOUNTRY));
+
+
+
 
             patient.setId(id);
             patient.setName(name);
@@ -95,5 +97,23 @@ public class RegisterDAO implements IRegisterDAO {
         }
 
         return patients;
+    }
+
+    public boolean clearData() {
+        try {
+            putData.delete(Database.TABLE_NAME, null, null);
+            Log.i("INFO", "Dados excluídos com sucesso!");
+            return true;
+        } catch (Exception e) {
+            Log.e("INFO", "Erro ao excluir dados do banco de dados: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean isPatientExist(String name) {
+        Cursor cursor = getData.rawQuery("SELECT * FROM " + Database.TABLE_NAME + " WHERE " + Database.NAME + "=?", new String[]{name});
+        boolean exist = cursor.getCount() > 0;
+        cursor.close();
+        return exist;
     }
 }
