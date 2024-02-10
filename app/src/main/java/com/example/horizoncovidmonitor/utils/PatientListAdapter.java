@@ -2,16 +2,19 @@ package com.example.horizoncovidmonitor.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.horizoncovidmonitor.DAO.RegisterDAO;
 import com.example.horizoncovidmonitor.R;
 import com.example.horizoncovidmonitor.RegisterActivity;
 import com.example.horizoncovidmonitor.model.Patient;
@@ -20,7 +23,7 @@ import java.util.List;
 
 public class PatientListAdapter extends ArrayAdapter<Patient> {
     private LayoutInflater inflater;
-    private Button buttonUpdate;
+    private Button buttonUpdate, buttonDelete;
     private TextView nameTextView, ageTextView, temperatureTextView, coughTextView, headacheTextView, countryTextView, countryWeekTextView, status;
 
     public PatientListAdapter(Context context, List<Patient> patients) {
@@ -45,7 +48,9 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         countryTextView = convertView.findViewById(R.id.countryTextView);
         countryWeekTextView = convertView.findViewById(R.id.countryWeekTextView);
         status = convertView.findViewById(R.id.status);
+
         buttonUpdate = convertView.findViewById(R.id.buttonUpdate);
+        buttonDelete = convertView.findViewById(R.id.buttonDelete);
 
         if (patient != null) {
             nameTextView.setText("Nome: " + patient.getName());
@@ -65,6 +70,28 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
                     Intent intent = new Intent(getContext(), RegisterActivity.class);
                     intent.putExtra("patientToUpdate", patientToUpdate);
                     getContext().startActivity(intent);
+                }
+            });
+
+            buttonDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RegisterDAO registerDAO = new RegisterDAO(getContext().getApplicationContext());
+                    Patient patientToDelete = getItem(position);
+                    long patientId = patientToDelete.getId(); // Obtém o ID do paciente
+
+                    try {
+                        boolean deleted = registerDAO.delete(patientId);
+                        if (deleted) {
+                            Toast.makeText(PatientListAdapter.this.getContext(), "Item excluído com sucesso!", Toast.LENGTH_SHORT).show();
+                            remove(patientToDelete);
+                            notifyDataSetChanged();
+                        }
+                    } catch (Exception e) {
+                        Log.i("Error", "Erro ao excluir o item: " + e.getMessage());
+                        Toast.makeText(PatientListAdapter.this.getContext(), "Erro ao excluir o item", Toast.LENGTH_SHORT).show();
+                        e.printStackTrace();
+                    }
                 }
             });
 
