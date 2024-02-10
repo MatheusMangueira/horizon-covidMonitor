@@ -39,6 +39,9 @@ dependencies {
 
     //https://github.com/denzcoskun/ImageSlideshow
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
+    //https:github.com/PhilJay/MPAndroidChart
+    implementation( "com.github.PhilJay:MPAndroidChart:v3.1.0")
+
 
 
 }

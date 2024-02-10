@@ -17,7 +17,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button buttonRegister, buttonList;
+    private Button buttonRegister, buttonList, graphButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         buttonRegister = findViewById(R.id.buttonRegister);
         buttonList = findViewById(R.id.buttonList);
+        graphButton = findViewById(R.id.graphButton);
 
         ImageSlider imageSlider = findViewById(R.id.slider);
 
@@ -50,6 +51,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, PatientListByStatusActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        graphButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, GraphicActivity.class);
                 startActivity(intent);
             }
         });

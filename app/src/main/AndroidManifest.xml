@@ -15,6 +15,9 @@
         android:theme="@style/Theme.HorizonCovidMonitor"
         tools:targetApi="31">
         <activity
+            android:name=".GraphicActivity"
+            android:exported="false" />
+        <activity
             android:name=".PatientListByStatusActivity"
             android:exported="false" />
         <activity

@@ -6,6 +6,7 @@
     <string name="main_buttonRegister">Cadastrar paciente</string>
     <string name="main_ButtonList">Lista de pacientes</string>>
     <string name="main_title">Lista de ações:</string>
+    <string name="main_graphButton">Estatísticas</string>
 
     <!-- page register -->
     <string name="register_form">Cadastrar Paciente</string>
@@ -33,4 +34,7 @@
     <string name="notification_buttonGoBack">Cadastrar outro</string>
     <string name="notification_ButtonInitial">Voltar ao inicio</string>
 
+    <!-- page graphic -->
+    <string name="graphic_title">Dados do Gráfico</string>
+    <string name="graphic_infoTitle">Dados insuficientes para comparação!</string>
 </resources>
