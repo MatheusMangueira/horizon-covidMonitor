@@ -29,6 +29,7 @@
                 android:src="@drawable/icon_check" />
 
             <TextView
+                android:id="@+id/successMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
@@ -63,7 +64,9 @@
                     android:background="@drawable/backgound_button"
                     android:text="@string/notification_buttonGoBack"
                     android:textColor="@color/grey"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:visibility="visible"
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/buttonInitialView"

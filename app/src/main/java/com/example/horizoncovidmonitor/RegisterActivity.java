@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,12 +21,13 @@ import com.example.horizoncovidmonitor.service.RegisterService;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText registerName, age, registerTemperature, registerDay, registerHeadache, registerWeek;
+    private TextView registerTitle;
     private RadioGroup registerRadioCoughing, registerRadioHeadache, registerRadioCountry;
     private RadioButton yesCoughing, noCoughing, yesHeadache, noHeadache, italiaRadio, chinaRadio, indonesiaRadio, portugalRadio, euaRadio, noVisited;
     private boolean validateData;
     private Button registerButton, goBackInitial;
     private LinearLayout componentCoughing, componentHeadache, componentWeek;
-    private Patient currentCatient;
+    private Patient currentPatient;
     private RegisterService registerService;
 
     @Override
@@ -60,8 +62,8 @@ public class RegisterActivity extends AppCompatActivity {
                         }
 
                         String newName = registerName.getText().toString();
-                        if (currentCatient != null) {
-                            if (!newName.equals(currentCatient.getName()) && registerDAO.isPatientExist(newName)) {
+                        if (currentPatient != null) {
+                            if (!newName.equals(currentPatient.getName()) && registerDAO.isPatientExist(newName)) {
                                 Toast.makeText(RegisterActivity.this, "Já existe um paciente com o mesmo nome", Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -76,9 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                         String hospitalized = registerService.inpatient();
 
-                        if (currentCatient != null) {
+                        if (currentPatient != null) {
                             Patient patient = new Patient();
-                            patient.setId(currentCatient.getId());
+                            patient.setId(currentPatient.getId());
                             patient.setName(registerName.getText().toString());
                             patient.setAge(newAge);
                             patient.setTemperature(newTemperature);
@@ -92,6 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 finish();
                                 Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
                                 intent.putExtra("result", hospitalized);
+                                intent.putExtra("successMessage", "Atualizado com sucesso!");
                                 startActivity(intent);
 
                             }
@@ -111,6 +114,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 finish();
                                 Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
                                 intent.putExtra("result", hospitalized);
+                                intent.putExtra("successMessage", "Cadastrado com sucesso!");
                                 startActivity(intent);
                             }
                         }
@@ -133,29 +137,32 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void populateFieldsWithPatientData() {
-        currentCatient = getIntent().getParcelableExtra("patientToUpdate");
+        currentPatient = getIntent().getParcelableExtra("patientToUpdate");
 
-        if (currentCatient != null) {
-            registerName.setText(String.valueOf(currentCatient.getName()));
-            age.setText(String.valueOf(currentCatient.getAge()));
-            registerTemperature.setText(String.valueOf(currentCatient.getTemperature()));
-            registerDay.setText(String.valueOf(currentCatient.getCoughingDays()));
-            registerHeadache.setText(String.valueOf(currentCatient.getHeadacheDays()));
-            registerWeek.setText(String.valueOf(currentCatient.getWeeksCountry()));
+        if (currentPatient != null) {
+            registerTitle.setText("Atualizar Paciente");
+            registerButton.setText("Atualizar");
 
-            if (currentCatient.getCoughingDays() != 0) {
+            registerName.setText(String.valueOf(currentPatient.getName()));
+            age.setText(String.valueOf(currentPatient.getAge()));
+            registerTemperature.setText(String.valueOf(currentPatient.getTemperature()));
+            registerDay.setText(String.valueOf(currentPatient.getCoughingDays()));
+            registerHeadache.setText(String.valueOf(currentPatient.getHeadacheDays()));
+            registerWeek.setText(String.valueOf(currentPatient.getWeeksCountry()));
+
+            if (currentPatient.getCoughingDays() != 0) {
                 yesCoughing.setChecked(true);
             } else {
                 noCoughing.setChecked(true);
             }
 
-            if (currentCatient.getHeadacheDays() != 0) {
+            if (currentPatient.getHeadacheDays() != 0) {
                 yesHeadache.setChecked(true);
             } else {
                 noHeadache.setChecked(true);
             }
 
-            String visitedCountry = currentCatient.getVisitedCountry();
+            String visitedCountry = currentPatient.getVisitedCountry();
             if (visitedCountry != null) {
                 switch (visitedCountry) {
                     case "Itália":
@@ -183,6 +190,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initializeViews() {
         // Inicialização das views
+        registerTitle = findViewById(R.id.registerTitle);
         registerName = findViewById(R.id.registerName);
         age = findViewById(R.id.age);
         registerTemperature = findViewById(R.id.registerTemperature);

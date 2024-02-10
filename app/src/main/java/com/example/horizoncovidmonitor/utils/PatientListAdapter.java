@@ -81,6 +81,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), RegisterActivity.class);
                 intent.putExtra("patientToUpdate", patient);
+                intent.putExtra("UpMessage", "Atualizar Paciente");
                 getContext().startActivity(intent);
             }
         });
