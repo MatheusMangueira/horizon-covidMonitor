@@ -50,7 +50,33 @@ public class RegisterDAO implements IRegisterDAO {
 
     @Override
     public boolean update(Patient patient) {
-        return false;
+        ContentValues cv = new ContentValues();
+
+        cv.put(Database.NAME, patient.getName());
+        cv.put(Database.AGE, patient.getAge());
+        cv.put(Database.TEMPERATURE, patient.getTemperature());
+        cv.put(Database.COUGH, patient.getCoughingDays());
+        cv.put(Database.HEADACHE, patient.getHeadacheDays());
+        cv.put(Database.STATUS, patient.getStatus());
+        cv.put(Database.VISITEDCOUNTRY, patient.getVisitedCountry());
+        cv.put(Database.WEEKSCOUNTRY, patient.getWeeksCountry());
+
+        String selection = Database.ID + " = ?";
+        String[] selectionArgs = {String.valueOf(patient.getId())};
+
+        try {
+            int rowsAffected = putData.update(Database.TABLE_NAME, cv, selection, selectionArgs);
+            if (rowsAffected > 0) {
+                Log.i("INFO", "Registro atualizado com sucesso!");
+                return true;
+            } else {
+                Log.e("INFO", "Nenhum registro foi atualizado!");
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e("INFO", "Erro ao atualizar o registro: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
