@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.horizoncovidmonitor.DAO.RegisterDAO;
 import com.example.horizoncovidmonitor.model.Patient;
@@ -18,6 +19,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +46,27 @@ public class GraphicActivity extends AppCompatActivity {
             }
         });
 
-        RegisterDAO registerDAO = new RegisterDAO(getApplicationContext());
+        try {
+            int[] numPatients = getNumberOfPatientsByStatus();
+            boolean hasSufficientData = checkSufficientData(numPatients);
 
+            if (!hasSufficientData) {
+                pieChart.setVisibility(View.GONE);
+                messageTextView.setVisibility(View.VISIBLE);
+            } else {
+                messageTextView.setVisibility(View.GONE);
+                pieChart.setVisibility(View.VISIBLE);
+                displayPieChart(numPatients);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Toast.makeText(GraphicActivity.this, "Erro ao acessar o banco de dados", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private int[] getNumberOfPatientsByStatus() throws SQLException {
+        RegisterDAO registerDAO = new RegisterDAO(getApplicationContext());
         int[] numPatients = new int[3];
         String[] status = {"Covid", "Quarentena", "Liberado"};
 
@@ -53,31 +74,25 @@ public class GraphicActivity extends AppCompatActivity {
             List<Patient> patients = registerDAO.listByStatus(status[i]);
             numPatients[i] = patients.size();
         }
+        return numPatients;
+    }
 
-        boolean hasSufficientData = false;
-        for (int i = 0; i < numPatients.length; i++) {
-            if (numPatients[i] > 0) {
-                hasSufficientData = true;
-                break;
+    private boolean checkSufficientData(int[] numPatients) {
+        for (int numPatient : numPatients) {
+            if (numPatient > 0) {
+                return true;
             }
         }
+        return false;
+    }
 
-        if (!hasSufficientData) {
-            pieChart.setVisibility(View.GONE);
-            messageTextView.setVisibility(View.VISIBLE);
-        } else {
-            messageTextView.setVisibility(View.GONE);
-            pieChart.setVisibility(View.VISIBLE);
-        }
+    private void displayPieChart(int[] numPatients) {
+        ArrayList<PieEntry> status = new ArrayList<>();
+        status.add(new PieEntry(numPatients[0], "Covid"));
+        status.add(new PieEntry(numPatients[1], "Quarentena"));
+        status.add(new PieEntry(numPatients[2], "Liberado"));
 
-        Log.i("teste", "teste " + numPatients[0] + " " + numPatients[1] + " " + numPatients[2]);
-
-        ArrayList<PieEntry> visitors = new ArrayList<>();
-        visitors.add(new PieEntry(numPatients[0], "Covid"));
-        visitors.add(new PieEntry(numPatients[1], "Quarentena"));
-        visitors.add(new PieEntry(numPatients[2], "Liberado"));
-
-        PieDataSet pieDataSet = new PieDataSet(visitors, "Visitors");
+        PieDataSet pieDataSet = new PieDataSet(status, "Status");
         pieDataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         pieDataSet.setValueTextColor(Color.BLACK);
         pieDataSet.setValueTextSize(16f);
@@ -87,8 +102,6 @@ public class GraphicActivity extends AppCompatActivity {
         pieChart.setData(pieData);
         pieChart.getDescription().setEnabled(false);
         pieChart.animate();
-
     }
-
 
 }
