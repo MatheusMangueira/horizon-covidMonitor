@@ -39,7 +39,19 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         }
 
         Patient patient = getItem(position);
+        initializeViews(convertView);
 
+        if (patient != null) {
+            bindDataToViews(patient);
+            setUpdateButtonClickListener(patient);
+            setDeleteButtonClickListener(patient);
+        }
+
+        return convertView;
+
+    }
+
+    private void initializeViews(View convertView) {
         nameTextView = convertView.findViewById(R.id.nameTextView);
         ageTextView = convertView.findViewById(R.id.ageTextView);
         temperatureTextView = convertView.findViewById(R.id.temperatureTextView);
@@ -48,66 +60,53 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         countryTextView = convertView.findViewById(R.id.countryTextView);
         countryWeekTextView = convertView.findViewById(R.id.countryWeekTextView);
         status = convertView.findViewById(R.id.status);
-
         buttonUpdate = convertView.findViewById(R.id.buttonUpdate);
         buttonDelete = convertView.findViewById(R.id.buttonDelete);
+    }
 
-        if (patient != null) {
-            nameTextView.setText("Nome: " + patient.getName());
-            ageTextView.setText("Idade: " + patient.getAge());
-            temperatureTextView.setText("temperatura corporal: " + patient.getTemperature());
-            coughTextView.setText("Período (em dias) com tosse: " + patient.getCoughingDays());
-            headacheTextView.setText("Período (em dias) com dor de cabeça: " + patient.getHeadacheDays());
-            countryTextView.setText("Pais visitado: " + patient.getVisitedCountry());
-            countryWeekTextView.setText("Quantas semanas visitou o país: " + patient.getWeeksCountry());
-            status.setText("Status: " + patient.getStatus());
+    private void bindDataToViews(Patient patient) {
+        nameTextView.setText("Nome: " + patient.getName());
+        ageTextView.setText("Idade: " + patient.getAge());
+        temperatureTextView.setText("Temperatura corporal: " + patient.getTemperature());
+        coughTextView.setText("Período (em dias) com tosse: " + patient.getCoughingDays());
+        headacheTextView.setText("Período (em dias) com dor de cabeça: " + patient.getHeadacheDays());
+        countryTextView.setText("País visitado: " + patient.getVisitedCountry());
+        countryWeekTextView.setText("Quantas semanas visitou o país: " + patient.getWeeksCountry());
+        status.setText("Status: " + patient.getStatus());
+    }
 
-            buttonUpdate.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Patient patientToUpdate = getItem(position);
+    private void setUpdateButtonClickListener(final Patient patient) {
+        buttonUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), RegisterActivity.class);
+                intent.putExtra("patientToUpdate", patient);
+                getContext().startActivity(intent);
+            }
+        });
+    }
 
-                    Intent intent = new Intent(getContext(), RegisterActivity.class);
-                    intent.putExtra("patientToUpdate", patientToUpdate);
-                    getContext().startActivity(intent);
-                }
-            });
+    private void setDeleteButtonClickListener(final Patient patient) {
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RegisterDAO registerDAO = new RegisterDAO(getContext().getApplicationContext());
+                long patientId = patient.getId(); // Obtém o ID do paciente
 
-            buttonDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    RegisterDAO registerDAO = new RegisterDAO(getContext().getApplicationContext());
-                    Patient patientToDelete = getItem(position);
-                    long patientId = patientToDelete.getId(); // Obtém o ID do paciente
-
-                    try {
-                        boolean deleted = registerDAO.delete(patientId);
-                        if (deleted) {
-                            Toast.makeText(PatientListAdapter.this.getContext(), "Item excluído com sucesso!", Toast.LENGTH_SHORT).show();
-                            remove(patientToDelete);
-                            notifyDataSetChanged();
-                        }
-                    } catch (Exception e) {
-                        Log.i("Error", "Erro ao excluir o item: " + e.getMessage());
-                        Toast.makeText(PatientListAdapter.this.getContext(), "Erro ao excluir o item", Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
+                try {
+                    boolean deleted = registerDAO.delete(patientId);
+                    if (deleted) {
+                        Toast.makeText(getContext(), "Item excluído com sucesso!", Toast.LENGTH_SHORT).show();
+                        remove(patient);
+                        notifyDataSetChanged();
                     }
+                } catch (Exception e) {
+                    Log.i("Error", "Erro ao excluir o item: " + e.getMessage());
+                    Toast.makeText(getContext(), "Erro ao excluir o item", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
-            });
-
-        }
-
-        return convertView;
-    }
-
-    private String formatValue(int value) {
-        return value == 0 ? "ITEM NÃO INFORMADO" : String.valueOf(value);
-    }
-
-    private static class ViewHolder {
-        TextView nameTextView;
-        TextView ageTextView;
-        TextView temperatureTextView;
+            }
+        });
     }
 
 }
