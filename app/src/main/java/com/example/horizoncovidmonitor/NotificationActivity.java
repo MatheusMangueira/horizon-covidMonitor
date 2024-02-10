@@ -27,8 +27,8 @@ public class NotificationActivity extends AppCompatActivity {
         diagnosis = findViewById(R.id.diagnosis);
 
         Intent intent = getIntent();
-        String valorRecebido = intent.getStringExtra("result");
-        diagnosis.setText(valorRecebido);
+        String result = intent.getStringExtra("result");
+        diagnosis.setText(result);
 
         buttonNewRegister.setOnClickListener(new View.OnClickListener() {
             @Override
