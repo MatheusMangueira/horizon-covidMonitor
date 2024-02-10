@@ -8,7 +8,6 @@ public class RegisterService {
     private int temperature;
     private int age;
 
-
     public RegisterService(int coughing, int week, int headache, int temperature, int age) {
         // this.visitedCountry = visitedCountry;
         this.week = week;
@@ -17,55 +16,6 @@ public class RegisterService {
         this.age = age;
         this.coughing = coughing;
     }
-
-    public int getCoughing() {
-        return coughing;
-    }
-
-    public void setCoughing(int coughing) {
-        this.coughing = coughing;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getVisitedCountry() {
-        return visitedCountry;
-    }
-
-    public void setVisitedCountry(String visitedCountry) {
-        this.visitedCountry = visitedCountry;
-    }
-
-    public int getWeek() {
-        return week;
-    }
-
-    public void setWeek(int week) {
-        this.week = week;
-    }
-
-    public int getHeadache() {
-        return headache;
-    }
-
-    public void setHeadache(int headache) {
-        this.headache = headache;
-    }
-
-    public int getTemperature() {
-        return temperature;
-    }
-
-    public void setTemperature(int temperature) {
-        this.temperature = temperature;
-    }
-
 
     public String inpatient() {
         String admit;
