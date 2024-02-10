@@ -37,4 +37,11 @@
     <!-- page graphic -->
     <string name="graphic_title">Dados do Gráfico</string>
     <string name="graphic_infoTitle">Dados insuficientes para comparação!</string>
+
+    <!-- page list by status -->
+    <string name="list_title">Lista de Cadastro</string>
+    <string name="list_covidButton">covid</string>
+    <string name="list_auarantineButton">quarentena</string>
+    <string name="list_releasedButton">liberado</string>
+
 </resources>
