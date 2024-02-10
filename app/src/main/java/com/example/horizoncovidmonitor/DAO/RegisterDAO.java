@@ -14,14 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterDAO implements IRegisterDAO {
-
-    private SQLiteDatabase putData;
-    private SQLiteDatabase getData;
+    private SQLiteDatabase putData, getData, deleteData;
 
     public RegisterDAO(Context context) {
         Database db = new Database(context);
         putData = db.getWritableDatabase();
         getData = db.getReadableDatabase();
+        deleteData = db.getWritableDatabase();
     }
 
     @Override
@@ -80,8 +79,24 @@ public class RegisterDAO implements IRegisterDAO {
     }
 
     @Override
-    public boolean delete(Patient patient) {
-        return false;
+    public boolean delete(Long patientId) {
+        String selection = Database.ID + " = ?";
+        String[] selectionArgs = {String.valueOf(patientId)};
+
+        try {
+            int rowsDeleted = deleteData.delete(Database.TABLE_NAME, selection, selectionArgs);
+            if (rowsDeleted > 0) {
+                Log.i("INFO", "Registro excluído com sucesso!");
+                return true;
+            } else {
+                Log.e("INFO", "Nenhum registro foi excluído!");
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e("INFO", "Erro ao excluir o registro: " + e.getMessage());
+            return false;
+        }
+
     }
 
     @Override
