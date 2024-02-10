@@ -21,17 +21,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText registerName, age, registerTemperature, registerDay, registerHeadache, registerWeek;
     private RadioGroup registerRadioCoughing, registerRadioHeadache, registerRadioCountry;
-    private RadioButton yesCoughing, noCoughing, yesHeadache, noHeadache, italiaRadio, indonesiaRadio, portugalRadio, euaRadio, noVisited;
+    private RadioButton yesCoughing, noCoughing, yesHeadache, noHeadache, italiaRadio, chinaRadio, indonesiaRadio, portugalRadio, euaRadio, noVisited;
     private boolean validateData;
     private Button registerButton, goBackInitial;
     private LinearLayout componentCoughing, componentHeadache, componentWeek;
-
+    private Patient currentCatient;
     private RegisterService registerService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
         // Find views
         registerName = findViewById(R.id.registerName);
         age = findViewById(R.id.age);
@@ -42,7 +43,8 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton = findViewById(R.id.registerButton);
         yesCoughing = findViewById(R.id.yesCoughing);
         yesHeadache = findViewById(R.id.yesHeadache);
-        noVisited = findViewById(R.id.noVisited);
+        noCoughing = findViewById(R.id.noCoughing);
+        noHeadache = findViewById(R.id.noHeadache);
         componentCoughing = findViewById(R.id.componentCoughing);
         componentHeadache = findViewById(R.id.componentHeadache);
         componentWeek = findViewById(R.id.componentWeek);
@@ -53,9 +55,61 @@ public class RegisterActivity extends AppCompatActivity {
 
         // pais
         italiaRadio = findViewById(R.id.italiaRadio);
+        chinaRadio = findViewById(R.id.chinaRadio);
+        indonesiaRadio = findViewById(R.id.indonesiaRadio);
+        portugalRadio = findViewById(R.id.portugalRadio);
+        euaRadio = findViewById(R.id.euaRadio);
+        noVisited = findViewById(R.id.noVisited);
 
         // Set listeners
         setRadioListeners();
+
+        currentCatient = getIntent().getParcelableExtra("patientToUpdate");
+
+        if (currentCatient != null) {
+            registerName.setText(String.valueOf(currentCatient.getName()));
+            age.setText(String.valueOf(currentCatient.getAge()));
+            registerTemperature.setText(String.valueOf(currentCatient.getTemperature()));
+            registerDay.setText(String.valueOf(currentCatient.getCoughingDays()));
+            registerHeadache.setText(String.valueOf(currentCatient.getHeadacheDays()));
+            registerWeek.setText(String.valueOf(currentCatient.getWeeksCountry()));
+
+            if (currentCatient.getCoughingDays() != 0) {
+                yesCoughing.setChecked(true);
+            } else {
+                noCoughing.setChecked(true);
+            }
+
+            if (currentCatient.getHeadacheDays() != 0) {
+                yesHeadache.setChecked(true);
+            } else {
+                noHeadache.setChecked(true);
+            }
+
+            String visitedCountry = currentCatient.getVisitedCountry();
+            if (visitedCountry != null) {
+                switch (visitedCountry) {
+                    case "Itália":
+                        italiaRadio.setChecked(true);
+                        break;
+                    case "China":
+                        chinaRadio.setChecked(true);
+                        break;
+                    case "Indonésia":
+                        indonesiaRadio.setChecked(true);
+                        break;
+                    case "Portugal":
+                        portugalRadio.setChecked(true);
+                        break;
+                    case "EUA":
+                        euaRadio.setChecked(true);
+                        break;
+                }
+            } else {
+                noVisited.setChecked(true);
+            }
+
+        }
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,31 +132,61 @@ public class RegisterActivity extends AppCompatActivity {
                         visitedCountry = selectedRadioButton.getText().toString();
                     }
 
-                    if (registerDAO.isPatientExist(registerName.getText().toString())) {
-                        Toast.makeText(RegisterActivity.this, "Já existe um paciente com o mesmo nome", Toast.LENGTH_SHORT).show();
-                        return;
+                    String newName = registerName.getText().toString();
+                    if (currentCatient != null) {
+                        if (!newName.equals(currentCatient.getName()) && registerDAO.isPatientExist(newName)) {
+                            Toast.makeText(RegisterActivity.this, "Já existe um paciente com o mesmo nome", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    } else {
+                        if (registerDAO.isPatientExist(newName)) {
+                            Toast.makeText(RegisterActivity.this, "Já existe um paciente com o mesmo nome", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
 
                     registerService = new RegisterService(newRegisterDay, newWeeksCountry, newRegisterHeadache, newTemperature, newAge);
 
                     String hospitalized = registerService.inpatient();
 
-                    Patient patient = new Patient();
-                    patient.setName(registerName.getText().toString());
-                    patient.setAge(newAge);
-                    patient.setTemperature(newTemperature);
-                    patient.setCoughingDays(newRegisterDay);
-                    patient.setHeadacheDays(newRegisterHeadache);
-                    patient.setVisitedCountry(visitedCountry);
-                    patient.setWeeksCountry(newWeeksCountry);
-                    patient.setStatus(hospitalized);
+                    if (currentCatient != null) {
+                        Patient patient = new Patient();
+                        patient.setId(currentCatient.getId());
+                        patient.setName(registerName.getText().toString());
+                        patient.setAge(newAge);
+                        patient.setTemperature(newTemperature);
+                        patient.setCoughingDays(newRegisterDay);
+                        patient.setHeadacheDays(newRegisterHeadache);
+                        patient.setVisitedCountry(visitedCountry);
+                        patient.setWeeksCountry(newWeeksCountry);
+                        patient.setStatus(hospitalized);
 
-                    registerDAO.save(patient);
-                    finish();
+                        if (registerDAO.update(patient)) {
+                            finish();
+                            Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
+                            intent.putExtra("result", hospitalized);
+                            startActivity(intent);
 
-                    Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
-                    intent.putExtra("result", hospitalized);
-                    startActivity(intent);
+                        }
+
+                    } else {
+                        Patient patient = new Patient();
+                        patient.setName(registerName.getText().toString());
+                        patient.setAge(newAge);
+                        patient.setTemperature(newTemperature);
+                        patient.setCoughingDays(newRegisterDay);
+                        patient.setHeadacheDays(newRegisterHeadache);
+                        patient.setVisitedCountry(visitedCountry);
+                        patient.setWeeksCountry(newWeeksCountry);
+                        patient.setStatus(hospitalized);
+
+                        if (registerDAO.save(patient)) {
+                            finish();
+                            Intent intent = new Intent(RegisterActivity.this, NotificationActivity.class);
+                            intent.putExtra("result", hospitalized);
+                            startActivity(intent);
+                        }
+                    }
                 }
             }
         });

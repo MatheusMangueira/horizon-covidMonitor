@@ -2,6 +2,7 @@ package com.example.horizoncovidmonitor;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -30,11 +31,9 @@ public class PatientListActivity extends AppCompatActivity {
         titleStatus = findViewById(R.id.titleStatus);
 
         String status = getIntent().getStringExtra("status");
-
         titleStatus.setText("Lista de: " + status);
 
         RegisterDAO registerDAO = new RegisterDAO(this);
-
         List<Patient> patients = registerDAO.listByStatus(status);
 
         PatientListAdapter adapter = new PatientListAdapter(this, patients);
