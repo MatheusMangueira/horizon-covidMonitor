@@ -6,113 +6,132 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    >
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
 
     <LinearLayout
+        android:id="@+id/listButtonPAI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/rounded_background"
         android:backgroundTint="@color/whiteTwo"
-        >
+        android:orientation="vertical"
+        android:padding="16dp">
 
-
-    >
         <TextView
             android:id="@+id/nameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nome:"
-            android:textSize="18dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="Nome:"
+            android:textColor="@color/grey"
+            android:textSize="18dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/ageTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Idade:"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="Idade:"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/temperatureTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="temperatura corporal:"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="temperatura corporal:"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/coughTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="período (em dias) com tosse"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="período (em dias) com tosse"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/headacheTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="período (em dias) com dor de cabeça:"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="período (em dias) com dor de cabeça:"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/countryTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pais visitado:"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="Pais visitado:"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/countryWeekTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="quantas semanas visitou o Pais:"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="quantas semanas visitou o Pais:"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Status:"
-            android:textSize="16dp"
-            android:textColor="@color/grey"
-            android:textStyle="bold"
             android:layout_marginBottom="8dp"
-            />
+            android:text="Status:"
+            android:textColor="@color/grey"
+            android:textSize="16dp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal"
+            android:layout_marginTop="12dp"
+            >
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="12dp"
+                android:background="@color/greenCheck"
+                android:text="Atualizar"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonasd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/red"
+                android:text="Deletar"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+        </LinearLayout>
+
 
     </LinearLayout>
-
-
 
 
 </LinearLayout>

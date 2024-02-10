@@ -20,7 +20,7 @@ import java.util.List;
 
 public class PatientListAdapter extends ArrayAdapter<Patient> {
     private LayoutInflater inflater;
-    private Button buttonTestando;
+    private Button buttonUpdate;
     private TextView nameTextView, ageTextView, temperatureTextView, coughTextView, headacheTextView, countryTextView, countryWeekTextView, status;
 
     public PatientListAdapter(Context context, List<Patient> patients) {
@@ -45,7 +45,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
         countryTextView = convertView.findViewById(R.id.countryTextView);
         countryWeekTextView = convertView.findViewById(R.id.countryWeekTextView);
         status = convertView.findViewById(R.id.status);
-        buttonTestando = convertView.findViewById(R.id.buttonTestando);
+        buttonUpdate = convertView.findViewById(R.id.buttonUpdate);
 
         if (patient != null) {
             nameTextView.setText("Nome: " + patient.getName());
@@ -57,7 +57,7 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
             countryWeekTextView.setText("Quantas semanas visitou o país: " + patient.getWeeksCountry());
             status.setText("Status: " + patient.getStatus());
 
-            buttonTestando.setOnClickListener(new View.OnClickListener() {
+            buttonUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Patient patientToUpdate = getItem(position);
