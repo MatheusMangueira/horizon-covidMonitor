@@ -1,6 +1,11 @@
 package com.example.horizoncovidmonitor.model;
 
-public class Patient {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+public class Patient implements Parcelable {
     private Long id;
     private String name;
     private int age;
@@ -25,6 +30,34 @@ public class Patient {
         this.weeksCountry = weeksCountry;
         this.status = status;
     }
+
+    protected Patient(Parcel in) {
+        if (in.readByte() == 0) {
+            id = null;
+        } else {
+            id = in.readLong();
+        }
+        name = in.readString();
+        age = in.readInt();
+        temperature = in.readInt();
+        coughingDays = in.readInt();
+        headacheDays = in.readInt();
+        visitedCountry = in.readString();
+        weeksCountry = in.readInt();
+        status = in.readString();
+    }
+
+    public static final Creator<Patient> CREATOR = new Creator<Patient>() {
+        @Override
+        public Patient createFromParcel(Parcel in) {
+            return new Patient(in);
+        }
+
+        @Override
+        public Patient[] newArray(int size) {
+            return new Patient[size];
+        }
+    };
 
     public Long getId() {
         return id;
@@ -96,5 +129,28 @@ public class Patient {
 
     public void setWeeksCountry(int weeksCountry) {
         this.weeksCountry = weeksCountry;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeLong(id);
+        }
+        dest.writeString(name);
+        dest.writeInt(age);
+        dest.writeInt(temperature);
+        dest.writeInt(coughingDays);
+        dest.writeInt(headacheDays);
+        dest.writeString(visitedCountry);
+        dest.writeInt(weeksCountry);
+        dest.writeString(status);
     }
 }
