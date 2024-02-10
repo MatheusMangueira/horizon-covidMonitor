@@ -31,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
 
         List<SlideModel> imageList = new ArrayList<>();
 
-        imageList.add(new SlideModel(R.drawable.foto_principal, "Covid 19", ScaleTypes.FIT));
+
         imageList.add(new SlideModel(R.drawable.clinica, "Clinica", ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.foto_principal, "Covid 19", ScaleTypes.FIT));
+        imageList.add(new SlideModel(R.drawable.saude, "Saúde", ScaleTypes.FIT));
+
 
         imageSlider.setImageList(imageList);
 

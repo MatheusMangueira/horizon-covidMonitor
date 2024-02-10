@@ -15,16 +15,25 @@ import java.util.List;
 
 public class PatientListByStatusActivity extends AppCompatActivity {
 
-    private Button buttonCovid, buttonQuarantine, buttonReleased;
+    private Button buttonCovid, buttonQuarantine, buttonReleased, listBackButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list_by_status);
 
-        Button buttonCovid = findViewById(R.id.buttonCovid);
-        Button buttonQuarantine = findViewById(R.id.buttonQuarantine);
-        Button buttonReleased = findViewById(R.id.buttonReleased);
+        buttonCovid = findViewById(R.id.buttonCovid);
+        buttonQuarantine = findViewById(R.id.buttonQuarantine);
+        buttonReleased = findViewById(R.id.buttonReleased);
+        listBackButton = findViewById(R.id.listBackButton);
+
+        listBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PatientListByStatusActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
         buttonCovid.setOnClickListener(new View.OnClickListener() {
             @Override
