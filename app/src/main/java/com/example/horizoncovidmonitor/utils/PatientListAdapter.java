@@ -1,22 +1,27 @@
 package com.example.horizoncovidmonitor.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.horizoncovidmonitor.R;
+import com.example.horizoncovidmonitor.RegisterActivity;
 import com.example.horizoncovidmonitor.model.Patient;
 
 import java.util.List;
 
 public class PatientListAdapter extends ArrayAdapter<Patient> {
     private LayoutInflater inflater;
+    private Button buttonTestando;
+    private TextView nameTextView, ageTextView, temperatureTextView, coughTextView, headacheTextView, countryTextView, countryWeekTextView, status;
 
     public PatientListAdapter(Context context, List<Patient> patients) {
         super(context, 0, patients);
@@ -32,15 +37,37 @@ public class PatientListAdapter extends ArrayAdapter<Patient> {
 
         Patient patient = getItem(position);
 
+        nameTextView = convertView.findViewById(R.id.nameTextView);
+        ageTextView = convertView.findViewById(R.id.ageTextView);
+        temperatureTextView = convertView.findViewById(R.id.temperatureTextView);
+        coughTextView = convertView.findViewById(R.id.coughTextView);
+        headacheTextView = convertView.findViewById(R.id.headacheTextView);
+        countryTextView = convertView.findViewById(R.id.countryTextView);
+        countryWeekTextView = convertView.findViewById(R.id.countryWeekTextView);
+        status = convertView.findViewById(R.id.status);
+        buttonTestando = convertView.findViewById(R.id.buttonTestando);
+
         if (patient != null) {
-            ((TextView) convertView.findViewById(R.id.nameTextView)).setText("Nome: " + patient.getName());
-            ((TextView) convertView.findViewById(R.id.ageTextView)).setText("Idade: " + patient.getAge());
-            ((TextView) convertView.findViewById(R.id.temperatureTextView)).setText("temperatura corporal: " + patient.getTemperature());
-            ((TextView) convertView.findViewById(R.id.coughTextView)).setText("Período (em dias) com tosse: " + formatValue(patient.getCoughingDays()));
-            ((TextView) convertView.findViewById(R.id.headacheTextView)).setText("Período (em dias) com dor de cabeça: " + formatValue(patient.getHeadacheDays()));
-            ((TextView) convertView.findViewById(R.id.countryTextView)).setText("Pais visitado: " + patient.getVisitedCountry());
-            ((TextView) convertView.findViewById(R.id.countryWeekTextView)).setText("Quantas semanas visitou o país: " + formatValue(patient.getWeeksCountry()));
-            ((TextView) convertView.findViewById(R.id.status)).setText("Status: " + patient.getStatus());
+            nameTextView.setText("Nome: " + patient.getName());
+            ageTextView.setText("Idade: " + patient.getAge());
+            temperatureTextView.setText("temperatura corporal: " + patient.getTemperature());
+            coughTextView.setText("Período (em dias) com tosse: " + patient.getCoughingDays());
+            headacheTextView.setText("Período (em dias) com dor de cabeça: " + patient.getHeadacheDays());
+            countryTextView.setText("Pais visitado: " + patient.getVisitedCountry());
+            countryWeekTextView.setText("Quantas semanas visitou o país: " + patient.getWeeksCountry());
+            status.setText("Status: " + patient.getStatus());
+
+            buttonTestando.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Patient patientToUpdate = getItem(position);
+
+                    Intent intent = new Intent(getContext(), RegisterActivity.class);
+                    intent.putExtra("patientToUpdate", patientToUpdate);
+                    getContext().startActivity(intent);
+                }
+            });
+
         }
 
         return convertView;
