@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RegisterActivity">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="165dp"
+        android:layout_height="72dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/horizon"
+        />
+
+    <TextView
+        android:id="@+id/registerTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/register_form"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textAlignment="center"
+        android:layout_marginBottom="24dp"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_name"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/registerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:hint="nome do paciente"
+                    android:inputType="text"
+                    android:paddingHorizontal="8dp"
+                    android:textSize="16sp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_age"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:hint="idade do paciente"
+                android:inputType="number"
+                android:paddingHorizontal="8dp"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_temperature"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerTemperature"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:hint="temperatura do paciente"
+                android:paddingHorizontal="8dp"
+                android:inputType="number"
+                android:textSize="16sp" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_noOryesCoughing"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <RadioGroup
+                    android:id="@+id/registerRadioCoughing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <RadioButton
+                        android:orientation="horizontal"
+                        android:id="@+id/yesCoughing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sim"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"
+                        android:layout_marginRight="12dp"
+                        />
+                    <RadioButton
+                        android:checked="true"
+                        android:id="@+id/noCoughing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Não"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/componentCoughing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_noOryesCoughing_day"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/registerDay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="16dp"
+                    android:hint="dias"
+                    android:paddingHorizontal="8dp"
+                    android:inputType="number"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_noOryesHeadache"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <RadioGroup
+                    android:id="@+id/registerRadioHeadache"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <RadioButton
+                        android:id="@+id/yesHeadache"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sim"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"
+                        android:layout_marginRight="12dp"
+                        />
+                    <RadioButton
+                        android:checked="true"
+                        android:id="@+id/noHeadache"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Não"
+                        android:textColor="@color/grey"
+                        android:textSize="16sp"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/componentHeadache"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_headache"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerHeadache"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:hint="dias"
+                android:paddingHorizontal="8dp"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_visitedCountry"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/registerRadioCountry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                >
+
+                <RadioButton
+                android:id="@+id/italiaRadio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_italy"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                />
+
+                <RadioButton
+                    android:id="@+id/chinaRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_chine"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/indonesiaRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_indonesia"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/portugalRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_portugal"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    />
+
+                <RadioButton
+                    android:id="@+id/euaRadio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_eua"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    />
+                <RadioButton
+                    android:checked="true"
+                    android:id="@+id/noVisited"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/register_null"
+                    android:textColor="@color/grey"
+                    android:textSize="16sp"
+                    />
+
+            </RadioGroup>
+
+        <LinearLayout
+            android:id="@+id/componentWeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_week"
+                android:textAlignment="textStart"
+                android:textColor="@color/grey"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/registerWeek"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="16dp"
+                android:hint="semanas"
+                android:paddingHorizontal="8dp"
+                android:inputType="number"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_button"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/backgound_button"
+                android:textColor="@color/grey"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/goBackInitial"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/register_buttonGoBack"
+                android:textSize="16sp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/backgound_button"
+                android:textColor="@color/grey"/>
+        </LinearLayout>
+
+
+
+    </ScrollView>
+
+
+</LinearLayout>

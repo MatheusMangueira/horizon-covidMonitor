@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">horizonCovidMonitor</string>
+
+    <!-- page main -->
+    <string name="main_hello">Olá, seja bem vindo!</string>
+    <string name="main_buttonRegister">Cadastrar paciente</string>
+    <string name="main_ButtonList">Lista de pacientes</string>>
+    <string name="main_title">Lista de ações:</string>
+    <string name="main_graphButton">Estatísticas</string>
+
+    <!-- page register -->
+    <string name="register_form">Cadastrar Paciente</string>
+    <string name="register_name">Nome</string>
+    <string name="register_age">Idade</string>
+    <string name="register_temperature">Temperatura Corportal</string>
+    <string name="register_noOryesCoughing">Está ou esteve tossindo?</string>
+    <string name="register_noOryesCoughing_day">Período (em dias) com tosse</string>
+    <string name="register_noOryesHeadache">Está ou esteve com dor de cabeça?</string>
+    <string name="register_headache">Período (em dias) com dor de cabeça</string>
+    <string name="register_visitedCountry">Paises visitados</string>
+    <string name="register_italy">Itália</string>
+    <string name="register_chine">China</string>
+    <string name="register_indonesia">Indonésia</string>
+    <string name="register_portugal">Portugal</string>
+    <string name="register_eua">EUA</string>
+    <string name="register_null">Nenhuma Opção</string>
+    <string name="register_week">Á quantas semanas visitou o País?</string>
+    <string name="register_button">Cadastrar paciente</string>
+    <string name="register_buttonGoBack">Voltar</string>
+
+    <!-- page notification -->
+    <string name="notification_success">Cadastrado com sucesso!</string>
+    <string name="notification_result">Seu resultdo:</string>
+    <string name="notification_buttonGoBack">Cadastrar outro</string>
+    <string name="notification_ButtonInitial">Voltar ao inicio</string>
+
+    <!-- page graphic -->
+    <string name="graphic_title">Dados do Gráfico</string>
+    <string name="graphic_infoTitle">Dados insuficientes para comparação!</string>
+
+    <!-- page list by status -->
+    <string name="list_title">Lista de Cadastro</string>
+    <string name="list_covidButton">covid</string>
+    <string name="list_auarantineButton">quarentena</string>
+    <string name="list_releasedButton">liberado</string>
+
+</resources>
